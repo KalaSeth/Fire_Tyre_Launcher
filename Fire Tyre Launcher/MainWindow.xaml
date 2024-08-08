@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
-        Title="FT Launcher" Height="800" Width="948"
+        Title="FT Launcher" Height="1080" Width="1920"
         ResizeMode="NoResize"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -18,31 +18,18 @@
     <Grid>
 
         <!--Main BG-->
-        <Image Stretch="Fill" Source="Images/BG.png" HorizontalAlignment="Center" Margin="0,208,0,0"/>
-        
+        <Image Stretch="Fill" Source="Images/BG.png" HorizontalAlignment="Center" Margin="0,208,0,0" Width="1106" Height="537"/>
+
         <!--Base for Buttons-->
-        <Image Stretch="Fill" Source="Images/Extras/garage.png" HorizontalAlignment="Left" Width="457" Margin="-19,571,0,96" Opacity="0.1" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="176.184"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-            <Image.Effect>
-                <DropShadowEffect/>
-            </Image.Effect>
-        </Image>
-        
-        
+
+
         <!--Version Text-->
         <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="Wheat" Margin="0,0,15,1" Text="1.2.4" FontFamily="MS UI Gothic"/>
         <!--Ver Sup Text-->
         <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Foreground="Wheat" Margin="0,0,5,-1" Text="z" FontFamily="STXinwei"/>
 
         <!--Exit Button-->
-        <Button Name ="ExitButton" Click="ExitButton_Click" Margin="738,606,23,89" >
+        <Button Name ="ExitButton" Click="ExitButton_Click" Margin="1378,402,322,566" >
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -74,7 +61,7 @@
         </Button>
 
         <!--Play Button-->
-        <Button Name="PlayButton" Click="PlayButton_Click" FontSize="28" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="46,600,0,0" FontFamily="Valken" Height="87" Width="354" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
+        <Button Name="PlayButton" Click="PlayButton_Click" FontSize="28" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="732,754,0,0" FontFamily="Valken" Height="87" Width="354" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -106,7 +93,7 @@
         </Button>
 
         <!--Tittle Logo-->
-        <Image Source="Images/logo.png" Margin="34,8,40,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="UniformToFill" Height="322" >
+        <Image Source="Images/logo.png" Margin="602,226,582,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="UniformToFill" Height="274" >
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
@@ -120,7 +107,7 @@
         </Image>
 
         <!--Linkdin Button-->
-        <Button x:Name="LinkdinButton" Click="LinkdinButton_Click" Margin="664,454,240,302">
+        <Button x:Name="LinkdinButton" Click="LinkdinButton_Click" Margin="425,545,1455,495" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -135,7 +122,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="-5.123"/>
+                                        <RotateTransform Angle="0"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -148,7 +135,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1" ScaleY="1"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="3"/>
+                                        <RotateTransform Angle="10"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -166,7 +153,7 @@
         </Button>
 
         <!--Wehsite Button-->
-        <Button x:Name="ZherWebButton" Click="ZherWebButton_Click" Margin="606,454,298,302">
+        <Button x:Name="ZherWebButton" Click="ZherWebButton_Click" Margin="423,460,1457,580" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -181,7 +168,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="-5.123"/>
+                                        <RotateTransform Angle="0"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -194,7 +181,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1" ScaleY="1"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="5"/>
+                                        <RotateTransform Angle="-10"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -212,7 +199,7 @@
         </Button>
 
         <!--Insta Button-->
-        <Button x:Name="InstaButton" Click="InstaButton_Click" Margin="784,454,120,302">
+        <Button x:Name="InstaButton" Click="InstaButton_Click" Margin="425,646,1455,394" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -227,7 +214,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="-5.123"/>
+                                        <RotateTransform Angle="0"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -240,7 +227,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1" ScaleY="1"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="2"/>
+                                        <RotateTransform Angle="-10"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -258,7 +245,7 @@
         </Button>
 
         <!--Discord Button-->
-        <Button x:Name="DiscordButton" Click="Discord_Click" Margin="722,454,182,302">
+        <Button x:Name="DiscordButton" Click="Discord_Click" Margin="445,826,1435,214" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -273,7 +260,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="-5.123"/>
+                                        <RotateTransform Angle="0"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -286,7 +273,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1" ScaleY="1"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="4"/>
+                                        <RotateTransform Angle="-10"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -298,13 +285,13 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <Button.Effect> 
+            <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
 
         <!--Youtube Button-->
-        <Button x:Name="YoutubeButton" Click="YoutubeButton_Click" Margin="847,454,57,302">
+        <Button x:Name="YoutubeButton" Click="YoutubeButton_Click" Margin="440,730,1440,310" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -319,7 +306,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="-5.123"/>
+                                        <RotateTransform Angle="0"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
@@ -332,7 +319,7 @@
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1" ScaleY="1"/>
                                         <SkewTransform/>
-                                        <RotateTransform Angle="3"/>
+                                        <RotateTransform Angle="10"/>
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Setter.Value>
