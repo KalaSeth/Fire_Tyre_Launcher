@@ -24,11 +24,12 @@
             </Image.Effect>
         </Image>
 
+
         <!--Base for Buttons-->
 
 
         <!--Version Text-->
-        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1312,0,0,399" Text="1.2.4" FontFamily="MS UI Gothic" FontWeight="Bold"/>
+        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1312,0,0,399"   FontFamily="MS UI Gothic" FontWeight="Bold"/>
         <!--Ver Sup Text-->
         <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="BlueViolet" Margin="0,0,621,398" Text="Version" FontFamily="Franklin Gothic Demi"/>
 
@@ -99,7 +100,7 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <TextBlock Text="Play" VerticalAlignment="Center" FontSize="28" Foreground="Black"/>
+            <TextBlock Text="Play" FontSize="28" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="744,544,0,0" FontFamily="Valken" Height="87" Width="354" RenderTransformOrigin="0.5,0.5"/>
         </Button>
 
         <!--Tittle Logo-->
@@ -117,7 +118,7 @@
         </Image>
 
         <!--Dialogue box-->
-        <Image Source="Images/Extras/Box.png" Margin="614,309,1096,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="211" >
+        <Image Source="Images/Extras/Box.png" Margin="1093,285,623,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="191" >
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
@@ -359,6 +360,22 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
+
+        <!--Download Image-->
+        <Image Stretch="Fill" Source="Images/Extras/PR.png" HorizontalAlignment="Left" Margin="760,496,0,542" Width="322">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+
+        <!-- Progress Bar -->
+        <ProgressBar Name="DownloadProgressBar" Minimum="0" Maximum="100" Height="30" Visibility="Visible" Margin="769,502,847,548" Panel.ZIndex="1" Opacity="0.445">
+            <ProgressBar.Effect>
+                <BlurEffect/>
+            </ProgressBar.Effect>
+        </ProgressBar>
+        <!-- Progress Text -->
+        <TextBlock Name="DownloadProgressText" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="803,507,0,0" Visibility="Visible" Text="gfdgfdgdfgdfgdfg ret r" Height="22" Width="242" FontFamily="Toledo" Foreground="Black" FontWeight="Bold" Opacity="0.6" TextAlignment="Right"/>
 
     </Grid>
 </Window>

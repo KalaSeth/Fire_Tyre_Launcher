@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.IO.Packaging;
 using System.Net;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Fire_Tyre_Launcher
@@ -63,7 +64,7 @@ namespace Fire_Tyre_Launcher
             InitializeComponent();
             this.MouseLeftButtonDown += new MouseButtonEventHandler(Window_MouseLeftButtonDown);
             roothPath = Directory.GetCurrentDirectory();
-            versionFile = Path.Combine(roothPath, "Version.txt");
+            versionFile = Path.Combine(roothPath, "version.txt");
             gameZip = Path.Combine(roothPath, "Fire Tyre.zip");
             gameExe = Path.Combine(roothPath, "Fire Tyre", "Fire Tyre.exe");
         }
@@ -118,6 +119,7 @@ namespace Fire_Tyre_Launcher
                     _onlineVersion = new Version(webClient.DownloadString("https://www.googleapis.com/drive/v3/files/1eqQVwYbMI_-nI0AOL-DUxq_a8OVwKeYX?alt=media&key=AIzaSyDVwCLXRkNFj3BuPCOuGyDO8aGg7-0Y5UI"));
                 }
 
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback);
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadCompletedCallback);
                 webClient.DownloadFileAsync(new Uri("https://www.googleapis.com/drive/v3/files/1DT880Hd34sX-bniBOUBM6FxxkbSuFcjj?alt=media&key=AIzaSyDVwCLXRkNFj3BuPCOuGyDO8aGg7-0Y5UI"), gameZip, _onlineVersion);
             }
@@ -127,6 +129,18 @@ namespace Fire_Tyre_Launcher
                 MessageBox.Show($"Error installing game files: {e} ");
 
             }
+        }
+
+        // Event handler to update download progress
+        private void DownloadProgressCallback(object sender, DownloadProgressChangedEventArgs e)
+        {
+            double bytesIn = double.Parse(e.BytesReceived.ToString());
+            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
+            double percentage = bytesIn / totalBytes * 100;
+
+            // Update UI with download progress
+            DownloadProgressBar.Value = percentage;  // Assuming you have a ProgressBar control
+            DownloadProgressText.Text = $"{e.BytesReceived / (1024.0 * 1024.0):0} MB of {e.TotalBytesToReceive / (1024.0 * 1024.0):0} MB :   {percentage:0}%";
         }
 
         private void DownloadCompletedCallback(object sender, AsyncCompletedEventArgs e)
