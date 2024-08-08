@@ -18,58 +18,68 @@
     <Grid>
 
         <!--Main BG-->
-        <Image Stretch="Fill" Source="Images/BG.png" HorizontalAlignment="Center" Margin="0,208,0,0" Width="1106" Height="537"/>
+        <Image Stretch="Fill" Source="Images/BG.png" HorizontalAlignment="Left" Margin="419,166,0,377" Width="1106" Height="537" Panel.ZIndex="-1">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
 
         <!--Base for Buttons-->
 
 
         <!--Version Text-->
-        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="Wheat" Margin="0,0,15,1" Text="1.2.4" FontFamily="MS UI Gothic"/>
+        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1312,0,0,399" Text="1.2.4" FontFamily="MS UI Gothic" FontWeight="Bold"/>
         <!--Ver Sup Text-->
-        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Foreground="Wheat" Margin="0,0,5,-1" Text="z" FontFamily="STXinwei"/>
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="BlueViolet" Margin="0,0,621,398" Text="Version" FontFamily="Franklin Gothic Demi"/>
 
         <!--Exit Button-->
-        <Button Name ="ExitButton" Click="ExitButton_Click" Margin="1378,402,322,566" >
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-5.123"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+        <Button x:Name ="ExitButton" Click="ExitButton_Click" Margin="1405,205,411,815" >
             <Button.Template>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Image Name="buttonImage" Source="Images/PlayNV.png" Stretch="Fill"/>
+                        <Image x:Name="buttonImage" Source="/Images/Extras/Exitb.png" Stretch="Fill"/>
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="buttonImage" Property="Source" Value="Images/PlayHV.png"/>
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/Extras/Exitb.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="10"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/Extras/Exitb.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="buttonImage" Property="Source" Value="Images/PlayCD.png"/>
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/Extras/Exitb.png"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <TextBlock Text="Exit" VerticalAlignment="Center" FontSize="28" Foreground="Black" FontFamily="LetterOMatic!"/>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
         </Button>
 
         <!--Play Button-->
-        <Button Name="PlayButton" Click="PlayButton_Click" FontSize="28" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="732,754,0,0" FontFamily="Valken" Height="87" Width="354" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-5.123"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
+        <Button Name="PlayButton" Click="PlayButton_Click" FontSize="28" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="744,544,0,0" FontFamily="Valken" Height="87" Width="354" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
@@ -93,7 +103,21 @@
         </Button>
 
         <!--Tittle Logo-->
-        <Image Source="Images/logo.png" Margin="602,226,582,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="UniformToFill" Height="274" >
+        <Image Source="Images/logo.png" Margin="614,16,570,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="UniformToFill" Height="274" Panel.ZIndex="10" >
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="2.282"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <!--Dialogue box-->
+        <Image Source="Images/Extras/Box.png" Margin="614,309,1096,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="211" >
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
@@ -107,7 +131,7 @@
         </Image>
 
         <!--Linkdin Button-->
-        <Button x:Name="LinkdinButton" Click="LinkdinButton_Click" Margin="425,545,1455,495" Width="40" Height="40">
+        <Button x:Name="LinkdinButton" Click="LinkdinButton_Click" Margin="437,335,1443,705" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -153,7 +177,7 @@
         </Button>
 
         <!--Wehsite Button-->
-        <Button x:Name="ZherWebButton" Click="ZherWebButton_Click" Margin="423,460,1457,580" Width="40" Height="40">
+        <Button x:Name="ZherWebButton" Click="ZherWebButton_Click" Margin="435,250,1445,790" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -199,7 +223,7 @@
         </Button>
 
         <!--Insta Button-->
-        <Button x:Name="InstaButton" Click="InstaButton_Click" Margin="425,646,1455,394" Width="40" Height="40">
+        <Button x:Name="InstaButton" Click="InstaButton_Click" Margin="437,436,1443,604" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -245,7 +269,7 @@
         </Button>
 
         <!--Discord Button-->
-        <Button x:Name="DiscordButton" Click="Discord_Click" Margin="445,826,1435,214" Width="40" Height="40">
+        <Button x:Name="DiscordButton" Click="Discord_Click" Margin="457,616,1423,424" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
@@ -291,7 +315,7 @@
         </Button>
 
         <!--Youtube Button-->
-        <Button x:Name="YoutubeButton" Click="YoutubeButton_Click" Margin="440,730,1440,310" Width="40" Height="40">
+        <Button x:Name="YoutubeButton" Click="YoutubeButton_Click" Margin="452,520,1428,520" Width="40" Height="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>

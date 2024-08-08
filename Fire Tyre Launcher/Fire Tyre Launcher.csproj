@@ -105,9 +105,6 @@
     <Resource Include="Images\BG.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\PlayNV.png" />
     <Resource Include="Images\PlayHV.png" />
     <Resource Include="Images\name button.png" />
@@ -128,6 +125,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Extras\zhe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Extras\Exitb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
