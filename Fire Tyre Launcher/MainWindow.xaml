@@ -29,7 +29,7 @@
 
 
         <!--Version Text-->
-        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1312,0,0,399"   FontFamily="MS UI Gothic" FontWeight="Bold"/>
+        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1304,0,0,399"   FontFamily="MS UI Gothic" Text="0.0.0" FontWeight="Bold" FontStyle="Italic"/>
         <!--Ver Sup Text-->
         <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="BlueViolet" Margin="0,0,621,398" Text="Version" FontFamily="Franklin Gothic Demi"/>
 
@@ -118,14 +118,30 @@
         </Image>
 
         <!--Dialogue box-->
-        <Image Source="Images/Extras/Box.png" Margin="1093,285,623,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="191" >
+        <Image x:Name="Setup" Source="Images/Extras/Box.png" Margin="1293,393,516,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="130" >
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
-                    <RotateTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="28.152"/>
+                    <TranslateTransform X="2.282"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <!--Dialogue box-->
+        <Image x:Name="Setup2" Source="Images/Extras/Box.png" Margin="702,250,743,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="406" Panel.ZIndex="2" >
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
                     <TranslateTransform X="2.282"/>
                 </TransformGroup>
             </Image.RenderTransform>
@@ -362,7 +378,7 @@
         </Button>
 
         <!--Download Image-->
-        <Image Stretch="Fill" Source="Images/Extras/PR.png" HorizontalAlignment="Left" Margin="760,496,0,542" Width="322">
+        <Image Name="DownloadImage" Stretch="Fill" Source="Images/Extras/PR.png" HorizontalAlignment="Left" Margin="760,496,0,542" Width="322">
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
@@ -375,7 +391,230 @@
             </ProgressBar.Effect>
         </ProgressBar>
         <!-- Progress Text -->
-        <TextBlock Name="DownloadProgressText" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="803,507,0,0" Visibility="Visible" Text="gfdgfdgdfgdfgdfg ret r" Height="22" Width="242" FontFamily="Toledo" Foreground="Black" FontWeight="Bold" Opacity="0.6" TextAlignment="Right"/>
+        <TextBlock Name="DownloadProgressText" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="803,507,0,0" Visibility="Visible" Height="22" Width="242" FontFamily="Toledo" Foreground="Black" FontWeight="Bold" Opacity="0.6" TextAlignment="Right"/>
+
+        <!--Settings Button-->
+        <Button x:Name="SettingsButton" Click="SettingsButton_Click" Margin="1298,425,552,585" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="29.992"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Margin="0,0,0,0">
+                        <Image x:Name="buttonImage" Source="/Images/Extras/settings.png" Stretch="Fill"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/Extras/settings.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="-20"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/Extras/settings.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/Extras/settings.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+
+        <!--UninstallGame Button-->
+        <Button x:Name="UninstallGameButton" Click="UninstallGameButton_Click" Margin="835,524,829,500" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-4.617"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Image x:Name="buttonImage" Source="/Images/name button.png" Stretch="Fill" Margin="0,0,0,0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/name button.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1.2"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/name button.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/name button.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <TextBlock FontSize="25" Foreground="FloralWhite" Text="UnInstall Game" TextAlignment="Center" FontFamily="Tarzan"/>
+        </Button>
+
+        <!--Setting1 Text-->
+        <TextBlock Name="SetText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="48" Foreground="Black" Margin="0,0,854,699" Text="Settings" Panel.ZIndex="2" Width="228" Height="86" TextAlignment="Center" FontFamily="Tarzan"/>
+        <!--Setting1 Text-->
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="PapayaWhip" Margin="0,0,875,369" Text="Made by ZherBlast" Panel.ZIndex="2" Width="228" Height="34" TextAlignment="Center" FontFamily="Tarzan"/>
+
+        <!--RepairGame Button-->
+        <Button x:Name="RepairGameButton" Click="RepairGameButton_Click" Margin="823,399,841,625" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-3.072"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Image x:Name="buttonImage" Source="/Images/name button.png" Stretch="Fill" Margin="0,0,0,0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/name button.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1.2"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/name button.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/name button.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <TextBlock FontSize="25" Foreground="FloralWhite" Text="Repair Game" TextAlignment="Center" FontFamily="Tarzan"/>
+        </Button>
+
+        <!--CloseSettings Button-->
+        <Button x:Name="CloseSettingsButton" Click="CloseSettingsButton_Click" Margin="1126,288,750,754" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="9.518"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Image x:Name="buttonImage" Source="/Images/cross.png" Stretch="Fill" Margin="0,0,0,0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/cross.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/cross.png"/>
+                            <Setter TargetName="buttonImage" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="buttonImage" Property="Source" Value="/Images/cross.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
     </Grid>
 </Window>

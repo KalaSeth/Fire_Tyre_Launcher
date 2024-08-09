@@ -17,6 +17,7 @@ namespace Fire_Tyre_Launcher
         failed,
         downloadingGame,
         downloadingUpdate,
+        install,
     }
 
     /// <summary>
@@ -28,6 +29,7 @@ namespace Fire_Tyre_Launcher
         private string versionFile;
         private string gameZip;
         private string gameExe;
+        private string gamelocation;
 
         private LauncherStatus _status;
         internal LauncherStatus Status
@@ -49,7 +51,10 @@ namespace Fire_Tyre_Launcher
                         PlayButton.Content = "Downloading Game";
                         break;
                     case LauncherStatus.downloadingUpdate:
-                        PlayButton.Content = "Downloading Update";
+                        PlayButton.Content = "Downloading Updates";
+                        break;
+                    case LauncherStatus.install:
+                        PlayButton.Content = "Download";
                         break;
 
                     default:
@@ -64,9 +69,21 @@ namespace Fire_Tyre_Launcher
             InitializeComponent();
             this.MouseLeftButtonDown += new MouseButtonEventHandler(Window_MouseLeftButtonDown);
             roothPath = Directory.GetCurrentDirectory();
-            versionFile = Path.Combine(roothPath, "version.txt");
-            gameZip = Path.Combine(roothPath, "Fire Tyre.zip");
-            gameExe = Path.Combine(roothPath, "Fire Tyre", "Fire Tyre.exe");
+            gamelocation = Path.Combine(roothPath, "Data");
+            versionFile = Path.Combine(gamelocation, "version.txt");
+            gameZip = Path.Combine(gamelocation, "Fire Tyre.zip");
+            gameExe = Path.Combine(gamelocation, "Fire Tyre", "Fire Tyre.exe");
+            
+
+            if (!Directory.Exists(gamelocation))
+            {
+                Directory.CreateDirectory(gamelocation);
+            }
+            
+
+            DownloadImage.Visibility = Visibility.Collapsed;
+            DownloadProgressBar.Visibility = Visibility.Collapsed;
+            DownloadProgressText.Visibility = Visibility.Collapsed;
         }
 
         private void CheckForUpdates()
@@ -98,7 +115,7 @@ namespace Fire_Tyre_Launcher
                 }
             }else
             {
-                InstallGameFiles(false, Version.Zero);
+                Status = LauncherStatus.install;
             }
 
         }
@@ -138,6 +155,10 @@ namespace Fire_Tyre_Launcher
             double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
             double percentage = bytesIn / totalBytes * 100;
 
+            DownloadImage.Visibility = Visibility.Visible;
+            DownloadProgressBar.Visibility = Visibility.Visible;
+            DownloadProgressText.Visibility = Visibility.Visible;
+
             // Update UI with download progress
             DownloadProgressBar.Value = percentage;  // Assuming you have a ProgressBar control
             DownloadProgressText.Text = $"{e.BytesReceived / (1024.0 * 1024.0):0} MB of {e.TotalBytesToReceive / (1024.0 * 1024.0):0} MB :   {percentage:0}%";
@@ -148,11 +169,21 @@ namespace Fire_Tyre_Launcher
             try
             {
                 string onlineVersion = ((Version)e.UserState).ToString();
-                ZipFile.ExtractToDirectory(gameZip, roothPath);
+                if (!Directory.Exists(Path.Combine(gamelocation, "temp")))
+                {
+                    Directory.CreateDirectory(Path.Combine(gamelocation, "temp"));
+                }
+               
+                ZipFile.ExtractToDirectory(gameZip, gamelocation, overwriteFiles: true);
+               // Directory.Move(Path.Combine(gamelocation, "temp", "Fire Tyre"), gamelocation);
                 File.Delete(gameZip);
 
                 File.WriteAllText(versionFile, onlineVersion);
                 VersionText.Text = onlineVersion;
+
+                DownloadImage.Visibility = Visibility.Collapsed;
+                DownloadProgressBar.Visibility = Visibility.Collapsed;
+                DownloadProgressText.Visibility = Visibility.Collapsed;
 
                 Status = LauncherStatus.ready;
             }
@@ -179,10 +210,18 @@ namespace Fire_Tyre_Launcher
             if (File.Exists(gameExe) && Status == LauncherStatus.ready)
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
-                startInfo.WorkingDirectory = Path.Combine(roothPath, "Fire Tyre");
+                startInfo.WorkingDirectory = Path.Combine(gamelocation, "Fire Tyre");
                 Process.Start(startInfo);
 
                 Close();
+            }
+            else if(Status == LauncherStatus.install)
+            {
+                if (!Directory.Exists(gamelocation))
+                {
+                    Directory.CreateDirectory(gamelocation);
+                }
+                InstallGameFiles(false, Version.Zero);
             }
             else if (Status == LauncherStatus.failed)
             {
@@ -218,6 +257,75 @@ namespace Fire_Tyre_Launcher
         private void YoutubeButton_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.youtube.com/@ZherBlast");
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSettings();
+        }
+
+        private void UninstallGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Directory.Delete(gamelocation, true);
+                Status = LauncherStatus.install;
+                MessageBox.Show("Uninstalled Finished.");
+                CloseSettings();
+                CheckForUpdates();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Uninstalling Game: " + ex.Message);
+            }
+        }
+
+        private void RepairGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (File.Exists(versionFile))
+                {
+                    try
+                    {
+                        File.WriteAllText(versionFile, "6.6.6");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error with reading files.");
+                    }
+                }
+                CloseSettings();
+                CheckForUpdates();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Repairing Game: " + ex.Message);
+            }
+        }
+
+        private void CloseSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            CloseSettings();
+        }
+
+        void ShowSettings()
+        {
+            Setup2.Visibility = Visibility.Visible;
+            UninstallGameButton.Visibility = Visibility.Visible;
+            RepairGameButton.Visibility = Visibility.Visible;
+            SetText.Visibility = Visibility.Visible;
+            CloseSettingsButton.Visibility = Visibility.Visible;
+        }
+
+        void CloseSettings()
+        {
+            Setup2.Visibility = Visibility.Collapsed;
+            UninstallGameButton.Visibility = Visibility.Collapsed;
+            RepairGameButton.Visibility = Visibility.Collapsed;
+            SetText.Visibility = Visibility.Collapsed;
+            CloseSettingsButton.Visibility = Visibility.Collapsed;
         }
     }
 
