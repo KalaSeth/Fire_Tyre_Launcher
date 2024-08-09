@@ -84,6 +84,8 @@ namespace Fire_Tyre_Launcher
             DownloadImage.Visibility = Visibility.Collapsed;
             DownloadProgressBar.Visibility = Visibility.Collapsed;
             DownloadProgressText.Visibility = Visibility.Collapsed;
+
+            CloseSettings();
         }
 
         private void CheckForUpdates()
