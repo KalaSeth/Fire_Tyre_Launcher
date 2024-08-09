@@ -23,10 +23,14 @@
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
+        <Image Stretch="Fill" Source="Images/Extras/B2.png" Margin="924,270,583,542">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
 
 
         <!--Base for Buttons-->
-
 
         <!--Version Text-->
         <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1304,0,0,399"   FontFamily="MS UI Gothic" Text="0.0.0" FontWeight="Bold" FontStyle="Italic"/>
@@ -117,23 +121,10 @@
             </Image.RenderTransform>
         </Image>
 
-        <!--Dialogue box-->
-        <Image x:Name="Setup" Source="Images/Extras/Box.png" Margin="1293,393,516,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="130" >
-            <Image.Effect>
-                <DropShadowEffect/>
-            </Image.Effect>
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="28.152"/>
-                    <TranslateTransform X="2.282"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
+
 
         <!--Dialogue box-->
-        <Image x:Name="Setup2" Source="Images/Extras/Box.png" Margin="702,250,743,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="406" Panel.ZIndex="2" >
+        <Image x:Name="Setup2" Source="Images/Extras/Box.png" Margin="702,250,743,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="406" Panel.ZIndex="2" Visibility="Collapsed" >
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
@@ -392,15 +383,15 @@
         </ProgressBar>
         <!-- Progress Text -->
         <TextBlock Name="DownloadProgressText" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="803,507,0,0" Visibility="Visible" Height="22" Width="242" FontFamily="Toledo" Foreground="Black" FontWeight="Bold" Opacity="0.6" TextAlignment="Right"/>
-
+        <!--Dialogu e box-->
         <!--Settings Button-->
-        <Button x:Name="SettingsButton" Click="SettingsButton_Click" Margin="1298,425,552,585" RenderTransformOrigin="0.5,0.5">
+        <Button x:Name="SettingsButton" Click="SettingsButton_Click" Margin="1435,301,436,731" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform/>
-                    <RotateTransform Angle="29.992"/>
-                    <TranslateTransform/>
+                    <RotateTransform Angle="43.76"/>
+                    <TranslateTransform X="1.52" Y="2.409"/>
                 </TransformGroup>
             </Button.RenderTransform>
             <Button.Template>
@@ -448,7 +439,7 @@
         </Button>
 
         <!--UninstallGame Button-->
-        <Button x:Name="UninstallGameButton" Click="UninstallGameButton_Click" Margin="835,524,829,500" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+        <Button x:Name="UninstallGameButton" Click="UninstallGameButton_Click" Margin="835,524,829,500" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -503,12 +494,12 @@
         </Button>
 
         <!--Setting1 Text-->
-        <TextBlock Name="SetText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="48" Foreground="Black" Margin="0,0,854,699" Text="Settings" Panel.ZIndex="2" Width="228" Height="86" TextAlignment="Center" FontFamily="Tarzan"/>
+        <TextBlock Name="SetText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="48" Foreground="Black" Margin="0,0,854,699" Text="Settings" Panel.ZIndex="2" Width="228" Height="86" TextAlignment="Center" FontFamily="Tarzan" Visibility="Collapsed"/>
         <!--Setting1 Text-->
         <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="PapayaWhip" Margin="0,0,875,369" Text="Made by ZherBlast" Panel.ZIndex="2" Width="228" Height="34" TextAlignment="Center" FontFamily="Tarzan"/>
 
         <!--RepairGame Button-->
-        <Button x:Name="RepairGameButton" Click="RepairGameButton_Click" Margin="823,399,841,625" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+        <Button x:Name="RepairGameButton" Click="RepairGameButton_Click" Margin="823,399,841,625" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -563,7 +554,7 @@
         </Button>
 
         <!--CloseSettings Button-->
-        <Button x:Name="CloseSettingsButton" Click="CloseSettingsButton_Click" Margin="1126,288,750,754" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+        <Button x:Name="CloseSettingsButton" Click="CloseSettingsButton_Click" Margin="1126,288,750,754" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -615,6 +606,29 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
+
+        <!--Updates text-->
+
+        <TextBlock x:Name="BulletTextBlock" 
+                   Margin="924,345,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" FontFamily="Comic Sans MS" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" FontSize="15">
+
+        </TextBlock>
+
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" Foreground="GhostWhite" Margin="0,0,614,746" Text="News!" FontFamily="Franklin Gothic Demi" Width="192" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.271"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+
+
 
     </Grid>
 </Window>

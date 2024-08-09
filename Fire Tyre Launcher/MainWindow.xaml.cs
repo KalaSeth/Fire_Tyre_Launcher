@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.IO.Packaging;
 using System.Net;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Fire_Tyre_Launcher
 {
@@ -30,6 +34,11 @@ namespace Fire_Tyre_Launcher
         private string gameZip;
         private string gameExe;
         private string gamelocation;
+        private string newsloc;
+
+        private List<Uri> imageUris;
+        private int currentIndex = 0;
+        private DispatcherTimer timer;
 
         private LauncherStatus _status;
         internal LauncherStatus Status
@@ -73,13 +82,25 @@ namespace Fire_Tyre_Launcher
             versionFile = Path.Combine(gamelocation, "version.txt");
             gameZip = Path.Combine(gamelocation, "Fire Tyre.zip");
             gameExe = Path.Combine(gamelocation, "Fire Tyre", "Fire Tyre.exe");
-            
+            newsloc = Path.Combine(gamelocation, "news.txt");
 
             if (!Directory.Exists(gamelocation))
             {
                 Directory.CreateDirectory(gamelocation);
             }
-            
+
+            try
+            {
+                WebClient webClient = new WebClient();
+                webClient.DownloadFileAsync(new Uri("https://www.googleapis.com/drive/v3/files/1JxKi2d8jaStf6ZkdDd0gr6QAjDt2JdEE?alt=media&key=AIzaSyDVwCLXRkNFj3BuPCOuGyDO8aGg7-0Y5UI"), newsloc);
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(LoadBulletPoints);
+            }
+            catch
+            {
+
+            }
+
+
 
             DownloadImage.Visibility = Visibility.Collapsed;
             DownloadProgressBar.Visibility = Visibility.Collapsed;
@@ -115,7 +136,8 @@ namespace Fire_Tyre_Launcher
                     MessageBox.Show($"Error checking for updates: {e} ");
 
                 }
-            }else
+            }
+            else
             {
                 Status = LauncherStatus.install;
             }
@@ -175,9 +197,9 @@ namespace Fire_Tyre_Launcher
                 {
                     Directory.CreateDirectory(Path.Combine(gamelocation, "temp"));
                 }
-               
+
                 ZipFile.ExtractToDirectory(gameZip, gamelocation, overwriteFiles: true);
-               // Directory.Move(Path.Combine(gamelocation, "temp", "Fire Tyre"), gamelocation);
+                // Directory.Move(Path.Combine(gamelocation, "temp", "Fire Tyre"), gamelocation);
                 File.Delete(gameZip);
 
                 File.WriteAllText(versionFile, onlineVersion);
@@ -217,7 +239,7 @@ namespace Fire_Tyre_Launcher
 
                 Close();
             }
-            else if(Status == LauncherStatus.install)
+            else if (Status == LauncherStatus.install)
             {
                 if (!Directory.Exists(gamelocation))
                 {
@@ -329,8 +351,31 @@ namespace Fire_Tyre_Launcher
             SetText.Visibility = Visibility.Collapsed;
             CloseSettingsButton.Visibility = Visibility.Collapsed;
         }
-    }
 
+        private void LoadBulletPoints(object sender, AsyncCompletedEventArgs e)
+        {
+            if (File.Exists(newsloc))
+            {
+                try
+                {
+                    string fileContent = File.ReadAllText(newsloc);
+
+                    string[] lines = fileContent.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    string formattedContent = string.Join(Environment.NewLine, lines);
+
+                    BulletTextBlock.Text = formattedContent;
+                }
+                catch (Exception)
+                {
+                    //MessageBox.Show($"Error loading file: {ex.Message}");
+                }
+            }
+        }
+
+    }
+  
+  
 
     struct Version
     {
