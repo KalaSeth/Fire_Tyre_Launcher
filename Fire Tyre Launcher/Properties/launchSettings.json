@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Fire Tyre Launcher": {
+      "commandName": "Project",
+      "nativeDebugging": true,
+      "hotReloadEnabled": false
+    }
+  }
+}

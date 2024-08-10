@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.IO.Packaging;
+using System.Linq;
 using System.Net;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 namespace Fire_Tyre_Launcher
 {
@@ -35,10 +30,7 @@ namespace Fire_Tyre_Launcher
         private string gameExe;
         private string gamelocation;
         private string newsloc;
-
-        private List<Uri> imageUris;
-        private int currentIndex = 0;
-        private DispatcherTimer timer;
+        private string infoloc;
 
         private LauncherStatus _status;
         internal LauncherStatus Status
@@ -72,7 +64,6 @@ namespace Fire_Tyre_Launcher
             }
         }
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -83,6 +74,7 @@ namespace Fire_Tyre_Launcher
             gameZip = Path.Combine(gamelocation, "Fire Tyre.zip");
             gameExe = Path.Combine(gamelocation, "Fire Tyre", "Fire Tyre.exe");
             newsloc = Path.Combine(gamelocation, "news.txt");
+            infoloc = Path.Combine(gamelocation, "info.txt");
 
             if (!Directory.Exists(gamelocation))
             {
@@ -91,9 +83,19 @@ namespace Fire_Tyre_Launcher
 
             try
             {
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
                 WebClient webClient = new WebClient();
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
+                WebClient webClient2 = new WebClient();
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
+
+
+
                 webClient.DownloadFileAsync(new Uri("https://www.googleapis.com/drive/v3/files/1JxKi2d8jaStf6ZkdDd0gr6QAjDt2JdEE?alt=media&key=AIzaSyDVwCLXRkNFj3BuPCOuGyDO8aGg7-0Y5UI"), newsloc);
+                webClient2.DownloadFileAsync(new Uri("https://www.googleapis.com/drive/v3/files/1ZTRwZdD8b92xb58jtuAz7wGegHTGZ5Xd?alt=media&key=AIzaSyDVwCLXRkNFj3BuPCOuGyDO8aGg7-0Y5UI"), infoloc);
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(LoadBulletPoints);
+                webClient2.DownloadFileCompleted += new AsyncCompletedEventHandler(LoadBulletPoints2);
             }
             catch
             {
@@ -111,6 +113,8 @@ namespace Fire_Tyre_Launcher
 
         private void CheckForUpdates()
         {
+            DisplayDirectorySize(roothPath);
+
             if (File.Exists(versionFile))
             {
                 Version localversion = new Version(File.ReadAllText(versionFile));
@@ -118,7 +122,9 @@ namespace Fire_Tyre_Launcher
 
                 try
                 {
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
                     WebClient webClient = new WebClient();
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
                     Version onlineVersion = new Version(webClient.DownloadString("https://www.googleapis.com/drive/v3/files/1eqQVwYbMI_-nI0AOL-DUxq_a8OVwKeYX?alt=media&key=AIzaSyDVwCLXRkNFj3BuPCOuGyDO8aGg7-0Y5UI"));
 
                     if (onlineVersion.isDifferentThan(localversion))
@@ -148,7 +154,9 @@ namespace Fire_Tyre_Launcher
         {
             try
             {
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
                 WebClient webClient = new WebClient();
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
 
                 if (isUpdate)
                 {
@@ -163,6 +171,8 @@ namespace Fire_Tyre_Launcher
                 webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback);
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadCompletedCallback);
                 webClient.DownloadFileAsync(new Uri("https://www.googleapis.com/drive/v3/files/1DT880Hd34sX-bniBOUBM6FxxkbSuFcjj?alt=media&key=AIzaSyDVwCLXRkNFj3BuPCOuGyDO8aGg7-0Y5UI"), gameZip, _onlineVersion);
+
+                DisplayDirectorySize(roothPath);
             }
             catch (Exception e)
             {
@@ -204,6 +214,8 @@ namespace Fire_Tyre_Launcher
 
                 File.WriteAllText(versionFile, onlineVersion);
                 VersionText.Text = onlineVersion;
+
+                DisplayDirectorySize(roothPath);
 
                 DownloadImage.Visibility = Visibility.Collapsed;
                 DownloadProgressBar.Visibility = Visibility.Collapsed;
@@ -260,27 +272,32 @@ namespace Fire_Tyre_Launcher
 
         private void LinkdinButton_Click(object sender, RoutedEventArgs eventArgs)
         {
-            System.Diagnostics.Process.Start("https://in.linkedin.com/company/zherblast");
+            string url = "https://in.linkedin.com/company/zherblast";
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
         }
 
         private void ZherWebButton_Click(object sender, RoutedEventArgs eventArgs)
         {
-            System.Diagnostics.Process.Start("https://zherblast.com/");
+            string url = "https://zherblast.com/";
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
         }
 
         private void InstaButton_Click(object sender, RoutedEventArgs eventArgs)
         {
-            System.Diagnostics.Process.Start("https://www.instagram.com/zherblast/");
+            string url = "https://www.instagram.com/zherblast/";
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
         }
 
         private void Discord_Click(object sender, RoutedEventArgs eventArgs)
         {
-            System.Diagnostics.Process.Start("https://discord.gg/AAzq5q4aBh");
+            string url = "https://discord.gg/AAzq5q4aBh";
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
         }
 
         private void YoutubeButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.youtube.com/@ZherBlast");
+            string url = "https://www.youtube.com/@ZherBlast";
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -297,7 +314,7 @@ namespace Fire_Tyre_Launcher
                 MessageBox.Show("Uninstalled Finished.");
                 CloseSettings();
                 CheckForUpdates();
-
+                DisplayDirectorySize(roothPath);
             }
             catch (Exception ex)
             {
@@ -334,6 +351,12 @@ namespace Fire_Tyre_Launcher
             CloseSettings();
         }
 
+        private void ReportBugButton_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "https://docs.google.com/forms/d/e/1FAIpQLSdPK__yLy3jjt4_P6MUsyW8tv5EwKWwwj4r48S38KmVlUmQqw/viewform?usp=sf_link";
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+        }
+
         void ShowSettings()
         {
             Setup2.Visibility = Visibility.Visible;
@@ -341,6 +364,15 @@ namespace Fire_Tyre_Launcher
             RepairGameButton.Visibility = Visibility.Visible;
             SetText.Visibility = Visibility.Visible;
             CloseSettingsButton.Visibility = Visibility.Visible;
+            ReportBugButton.Visibility = Visibility.Visible;
+            Setup2_Copy.Visibility = Visibility.Visible;
+            Setup2_Copy1.Visibility = Visibility.Visible;
+            Setup2_Copy2.Visibility = Visibility.Visible;
+            Setup2_Copy3.Visibility = Visibility.Visible;
+            SetText_Copy.Visibility = Visibility.Visible;
+            SetText_Copy1.Visibility = Visibility.Visible;
+            SetText_Copy2.Visibility = Visibility.Visible;
+
         }
 
         void CloseSettings()
@@ -350,6 +382,14 @@ namespace Fire_Tyre_Launcher
             RepairGameButton.Visibility = Visibility.Collapsed;
             SetText.Visibility = Visibility.Collapsed;
             CloseSettingsButton.Visibility = Visibility.Collapsed;
+            ReportBugButton.Visibility = Visibility.Collapsed;
+            Setup2_Copy.Visibility = Visibility.Collapsed;
+            Setup2_Copy1.Visibility = Visibility.Collapsed;
+            Setup2_Copy2.Visibility = Visibility.Collapsed;
+            Setup2_Copy3.Visibility = Visibility.Collapsed;
+            SetText_Copy.Visibility = Visibility.Collapsed;
+            SetText_Copy1.Visibility = Visibility.Collapsed;
+            SetText_Copy2.Visibility = Visibility.Collapsed;
         }
 
         private void LoadBulletPoints(object sender, AsyncCompletedEventArgs e)
@@ -373,9 +413,64 @@ namespace Fire_Tyre_Launcher
             }
         }
 
+        private void LoadBulletPoints2(object sender, AsyncCompletedEventArgs e)
+        {
+            if (File.Exists(infoloc))
+            {
+                try
+                {
+                    string fileContent = File.ReadAllText(infoloc);
+
+                    string[] lines = fileContent.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    string formattedContent = string.Join(Environment.NewLine, lines);
+
+                    BulletTextBlock_Copy.Text = formattedContent;
+                }
+                catch (Exception)
+                {
+                    //MessageBox.Show($"Error loading file: {ex.Message}");
+                }
+            }
+        }
+
+        private void DisplayDirectorySize(string directoryPath)
+        {
+            try
+            {
+                long size = GetDirectorySize(directoryPath);
+                DirectorySizeTextBlock.Text = $"File Size: {FormatSize(size)}";
+            }
+            catch (Exception ex)
+            {
+                DirectorySizeTextBlock.Text = $"Error: {ex.Message}";
+            }
+        }
+
+        private long GetDirectorySize(string directoryPath)
+        {
+            return Directory.GetFiles(directoryPath, "*.*", SearchOption.AllDirectories)
+                            .Sum(file => new FileInfo(file).Length);
+        }
+
+        private string FormatSize(long bytes)
+        {
+            const int scale = 1024;
+            string[] orders = new string[] { "GB", "MB", "KB", "Bytes" };
+            long max = (long)Math.Pow(scale, orders.Length - 1);
+
+            foreach (string order in orders)
+            {
+                if (bytes >= max)
+                    return string.Format("{0:##.##} {1}", decimal.Divide(bytes, max), order);
+
+                max /= scale;
+            }
+            return "0 Bytes";
+        }
     }
-  
-  
+
+
 
     struct Version
     {
