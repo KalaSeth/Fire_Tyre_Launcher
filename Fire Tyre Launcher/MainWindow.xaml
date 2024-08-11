@@ -13,6 +13,12 @@
         AllowsTransparency="True"
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.Resources>
+        <FontFamily x:Key="TextBlockFontFamily1">Franklin Gothic Demi</FontFamily>
+        <FontFamily x:Key="TextBlockFontFamily2">Commons</FontFamily>
+        <FontFamily x:Key="TextBlockFontFamily3">Commons</FontFamily>
+        <FontFamily x:Key="TextBlockFontFamily4">Commons</FontFamily>
+    </Window.Resources>
 
 
     <Grid>
@@ -54,14 +60,27 @@
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
+        <Image Stretch="Fill" Source="/Images/Extras/Asset_69.png" Margin="1041,717,675,309" Opacity="0.5" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.596"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
 
 
         <!--Base for Buttons-->
 
         <!--Version Text-->
-        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1292,0,0,249"   FontFamily="MS UI Gothic" Text="0.0.0" FontWeight="Bold" FontStyle="Italic"/>
+        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Foreground="BlueViolet" Margin="1211,0,0,248"   FontFamily="MS UI Gothic" Text="0.0.0 " FontWeight="Bold" FontStyle="Italic" TextAlignment="Right" Width="129"/>
         <!--Ver Sup Text-->
-        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="15" Foreground="BlueViolet" Margin="0,0,630,250" Text="Launcher ver" FontFamily="Franklin Gothic Demi"/>
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="15" Foreground="BlueViolet" Margin="0,0,630,250" Text="Launcher ver" FontFamily="{DynamicResource TextBlockFontFamily1}" Visibility="Collapsed"/>
 
         <!--Exit Button-->
         <Button x:Name ="ExitButton" Click="ExitButton_Click" Margin="1393,355,423,665" >
@@ -110,7 +129,7 @@
         </Button>
 
         <!--Play Button-->
-        <Button Name="PlayButton" Click="PlayButton_Click" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="732,695,0,0" FontFamily="Valken" Height="86" Width="354" BorderThickness="0" RenderTransformOrigin="0.5,0.5" FontSize="24">
+        <Button Name="PlayButton" Click="PlayButton_Click" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="594,695,0,0" FontFamily="Arial Black" Height="86" Width="354" BorderThickness="0" RenderTransformOrigin="0.5,0.5" FontSize="24" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
@@ -142,6 +161,19 @@
                 <TransformGroup>
                     <ScaleTransform/>
                     <RotateTransform/>
+                    <TranslateTransform X="2.282"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="Setup2_Copy4" Source="/Images/Extras/B2.png" Margin="513,362,570,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Stretch="Fill" Height="482" Panel.ZIndex="2" Opacity="0.585" Visibility="Collapsed" >
+            <Image.Effect>
+                <BlurEffect/>
+            </Image.Effect>
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180.068"/>
                     <TranslateTransform X="2.282"/>
                 </TransformGroup>
             </Image.RenderTransform>
@@ -442,22 +474,31 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
+        <TextBlock x:Name="DirectorySizeTextBlock"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="GhostWhite" Margin="0,0,689,308" Width="196" RenderTransformOrigin="0.5,0.5" Height="34" Text="MB" FontSize="15" TextAlignment="Right" FontWeight="Bold" FontFamily="Copperplate Gothic Bold">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.338"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform></TextBlock>
 
         <!--Download Image-->
-        <Image Name="DownloadImage" Stretch="Fill" Source="Images/Extras/PR.png" HorizontalAlignment="Left" Margin="748,647,0,391" Width="322">
+        <Image Name="DownloadImage" Stretch="Fill" Source="Images/Extras/PR.png" HorizontalAlignment="Left" Margin="960,726,0,312" Width="322">
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
 
         <!-- Progress Bar -->
-        <ProgressBar Name="DownloadProgressBar" Minimum="0" Maximum="100" Height="30" Visibility="Visible" Margin="757,653,859,397" Panel.ZIndex="1" Opacity="0.445">
+        <ProgressBar Name="DownloadProgressBar" Minimum="0" Maximum="100" Height="30" Visibility="Visible" Margin="969,732,647,318" Panel.ZIndex="1" Opacity="0.445">
             <ProgressBar.Effect>
                 <BlurEffect/>
             </ProgressBar.Effect>
         </ProgressBar>
         <!-- Progress Text -->
-        <TextBlock Name="DownloadProgressText" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="791,657,0,0" Visibility="Visible" Height="22" Width="242" FontFamily="Toledo" Foreground="Black" FontWeight="Bold" Opacity="0.6" TextAlignment="Right"/>
+        <TextBlock Name="DownloadProgressText" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="1003,736,0,0" Visibility="Visible" Height="22" Width="242" FontFamily="Toledo" Foreground="Black" FontWeight="Bold" Opacity="0.6" TextAlignment="Right"/>
         <!--Dialogu e box-->
         <!--Settings Button-->
         <Button x:Name="SettingsButton" Click="SettingsButton_Click" Margin="1409,479,462,553" RenderTransformOrigin="0.5,0.5">
@@ -569,9 +610,9 @@
         </Button>
 
         <!--Setting1 Text-->
-        <TextBlock Name="SetText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="48" Foreground="Black" Margin="0,0,866,549" Text="Options" Panel.ZIndex="2" Width="228" Height="86" TextAlignment="Center" FontFamily="Tarzan" Visibility="Collapsed"/>
+        <TextBlock Name="SetText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="48" Foreground="Black" Margin="0,0,876,563" Text="Options" Panel.ZIndex="2" Width="228" Height="68" TextAlignment="Center" FontFamily="Arial Black" FontWeight="Bold" Opacity="0.6" Visibility="Collapsed" />
         <!--Setting1 Text-->
-        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="PapayaWhip" Margin="0,0,887,211" Text="Made by ZherBlast" Panel.ZIndex="2" Width="228" Height="34" TextAlignment="Center" FontFamily="Tarzan">
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="PapayaWhip" Margin="0,0,887,211" Text="Made by ZherBlast" Panel.ZIndex="2" Width="228" Height="34" TextAlignment="Center" FontWeight="Bold">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -698,7 +739,7 @@ Foreground="WhiteSmoke"                                     RenderTransformOrigi
 
         </TextBlock>
 
-        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" Foreground="NavajoWhite" Margin="0,0,670,601" Text="Zher News!" FontFamily="Commons" Width="144" RenderTransformOrigin="0.5,0.5" Height="52" Opacity="0.9">
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" Foreground="NavajoWhite" Margin="0,0,670,601" Text="Zher News!" Width="144" RenderTransformOrigin="0.5,0.5" Height="42" Opacity="0.9" FontWeight="Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -734,7 +775,7 @@ Foreground="WhiteSmoke"                                     RenderTransformOrigi
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
-        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" Foreground="NavajoWhite" Margin="0,0,1166,573" FontFamily="Commons" Width="134" RenderTransformOrigin="0.5,0.5" Height="52" Opacity="0.9" Text="Info">
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" Foreground="NavajoWhite" Margin="0,0,1169,562" Width="134" RenderTransformOrigin="0.5,0.5" Height="52" Opacity="0.9" Text="Info" FontWeight="Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -803,15 +844,6 @@ Foreground="WhiteSmoke"                                     RenderTransformOrigi
             </Button.Effect>
             <TextBlock FontSize="25" Foreground="FloralWhite" Text="Report Bug" TextAlignment="Center" FontFamily="Tarzan"/>
         </Button>
-        <TextBlock Name="DirectorySizeTextBlock"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="Black" Margin="0,0,631,295" FontFamily="Commons" Width="196" RenderTransformOrigin="0.5,0.5" Height="45" Opacity="0.5" Text="MB" FontSize="15" TextAlignment="Right">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.271"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBlock.RenderTransform></TextBlock>
 
 
 

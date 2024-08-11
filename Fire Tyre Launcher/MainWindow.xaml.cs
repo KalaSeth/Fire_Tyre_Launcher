@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,6 +18,7 @@ namespace Fire_Tyre_Launcher
         downloadingGame,
         downloadingUpdate,
         install,
+        nonet,
     }
 
     /// <summary>
@@ -57,6 +59,9 @@ namespace Fire_Tyre_Launcher
                     case LauncherStatus.install:
                         PlayButton.Content = "Download";
                         break;
+                    case LauncherStatus.nonet:
+                        PlayButton.Content = "Connection Error";
+                        break;
 
                     default:
                         break;
@@ -81,6 +86,42 @@ namespace Fire_Tyre_Launcher
                 Directory.CreateDirectory(gamelocation);
             }
 
+            if (IsInternetAvailable() == false)
+            {
+                Status = LauncherStatus.nonet;
+            }
+            else
+            {
+                NewsCheck();
+            }
+
+
+
+            DownloadImage.Visibility = Visibility.Collapsed;
+            DownloadProgressBar.Visibility = Visibility.Collapsed;
+            DownloadProgressText.Visibility = Visibility.Collapsed;
+
+            CloseSettings();
+        }
+
+        private bool IsInternetAvailable()
+        {
+            try
+            {
+                using (Ping ping = new Ping())
+                {
+                    PingReply reply = ping.Send("8.8.8.8", 1000);
+                    return reply.Status == IPStatus.Success;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void NewsCheck()
+        {
             try
             {
 #pragma warning disable SYSLIB0014 // Type or member is obsolete
@@ -101,14 +142,6 @@ namespace Fire_Tyre_Launcher
             {
 
             }
-
-
-
-            DownloadImage.Visibility = Visibility.Collapsed;
-            DownloadProgressBar.Visibility = Visibility.Collapsed;
-            DownloadProgressText.Visibility = Visibility.Collapsed;
-
-            CloseSettings();
         }
 
         private void CheckForUpdates()
@@ -118,10 +151,12 @@ namespace Fire_Tyre_Launcher
             if (File.Exists(versionFile))
             {
                 Version localversion = new Version(File.ReadAllText(versionFile));
-                VersionText.Text = localversion.ToString();
+                VersionText.Text = "ver " + localversion.ToString();
 
                 try
                 {
+                    NewsCheck();
+
 #pragma warning disable SYSLIB0014 // Type or member is obsolete
                     WebClient webClient = new WebClient();
 #pragma warning restore SYSLIB0014 // Type or member is obsolete
@@ -136,16 +171,22 @@ namespace Fire_Tyre_Launcher
                         Status = LauncherStatus.ready;
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Status = LauncherStatus.failed;
-                    MessageBox.Show($"Error checking for updates: {e} ");
-
+                    Status = LauncherStatus.nonet;
+                    //MessageBox.Show($"Error checking for updates: {e} ");
                 }
             }
             else
             {
-                Status = LauncherStatus.install;
+                if (IsInternetAvailable())
+                {
+                    Status = LauncherStatus.install;
+                }
+                else
+                {
+                    Status = LauncherStatus.nonet;
+                }
             }
 
         }
@@ -213,7 +254,7 @@ namespace Fire_Tyre_Launcher
                 File.Delete(gameZip);
 
                 File.WriteAllText(versionFile, onlineVersion);
-                VersionText.Text = onlineVersion;
+                VersionText.Text = "ver " + onlineVersion;
 
                 DisplayDirectorySize(roothPath);
 
@@ -253,15 +294,32 @@ namespace Fire_Tyre_Launcher
             }
             else if (Status == LauncherStatus.install)
             {
-                if (!Directory.Exists(gamelocation))
+                if (IsInternetAvailable())
                 {
-                    Directory.CreateDirectory(gamelocation);
+                    NewsCheck();
+                    if (!Directory.Exists(gamelocation))
+                    {
+                        Directory.CreateDirectory(gamelocation);
+                    }
+                    InstallGameFiles(false, Version.Zero);
                 }
-                InstallGameFiles(false, Version.Zero);
+                else
+                {
+                    Status = LauncherStatus.nonet;
+                }
+               
             }
             else if (Status == LauncherStatus.failed)
             {
                 CheckForUpdates();
+            }
+            else if (Status == LauncherStatus.nonet)
+            {
+                if (IsInternetAvailable())
+                {
+                    NewsCheck();
+                }
+                    CheckForUpdates();
             }
         }
 
@@ -307,18 +365,21 @@ namespace Fire_Tyre_Launcher
 
         private void UninstallGameButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (Directory.Exists(gamelocation))
             {
-                Directory.Delete(gamelocation, true);
-                Status = LauncherStatus.install;
-                MessageBox.Show("Uninstalled Finished.");
-                CloseSettings();
-                CheckForUpdates();
-                DisplayDirectorySize(roothPath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error Uninstalling Game: " + ex.Message);
+                try
+                {
+                    Directory.Delete(gamelocation, true);
+                    Status = LauncherStatus.install;
+                    CloseSettings();
+                    CheckForUpdates();
+                    DisplayDirectorySize(roothPath);
+                    MessageBox.Show("Uninstalled Finished.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error Uninstalling Game: " + ex.Message);
+                }
             }
         }
 
@@ -330,7 +391,7 @@ namespace Fire_Tyre_Launcher
                 {
                     try
                     {
-                        File.WriteAllText(versionFile, "6.6.6");
+                        File.WriteAllText(versionFile, "6,6,6");
                     }
                     catch
                     {
@@ -369,6 +430,7 @@ namespace Fire_Tyre_Launcher
             Setup2_Copy1.Visibility = Visibility.Visible;
             Setup2_Copy2.Visibility = Visibility.Visible;
             Setup2_Copy3.Visibility = Visibility.Visible;
+            Setup2_Copy4.Visibility = Visibility.Visible;
             SetText_Copy.Visibility = Visibility.Visible;
             SetText_Copy1.Visibility = Visibility.Visible;
             SetText_Copy2.Visibility = Visibility.Visible;
@@ -387,6 +449,7 @@ namespace Fire_Tyre_Launcher
             Setup2_Copy1.Visibility = Visibility.Collapsed;
             Setup2_Copy2.Visibility = Visibility.Collapsed;
             Setup2_Copy3.Visibility = Visibility.Collapsed;
+            Setup2_Copy4.Visibility = Visibility.Collapsed;
             SetText_Copy.Visibility = Visibility.Collapsed;
             SetText_Copy1.Visibility = Visibility.Collapsed;
             SetText_Copy2.Visibility = Visibility.Collapsed;
