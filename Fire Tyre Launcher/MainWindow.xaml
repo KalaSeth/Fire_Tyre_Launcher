@@ -21,10 +21,10 @@
     </Window.Resources>
 
 
-    <Grid>
+    <Grid HorizontalAlignment="Center" Width="1920" Height="1080" VerticalAlignment="Center">
 
         <!--Main BG-->
-        <Image Stretch="Fill" Source="Images/BG.png" HorizontalAlignment="Center" Margin="0,317,0,226" Width="1106" Height="537" Panel.ZIndex="-1">
+        <Image Source="Images/BG.png" HorizontalAlignment="Center" Margin="0,317,0,226" Width="1106" Height="537" Panel.ZIndex="-1" Stretch="UniformToFill">
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>

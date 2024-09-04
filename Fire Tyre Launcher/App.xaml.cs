@@ -1,5 +1,8 @@
-﻿using System.Threading;
+﻿using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Fire_Tyre_Launcher
 {
@@ -12,6 +15,17 @@ namespace Fire_Tyre_Launcher
 
         protected override void OnStartup(StartupEventArgs e)
         {
+
+            var mainWindow = Application.Current.MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.Loaded += (sender, args) =>
+                {
+                    var dpiScale = VisualTreeHelper.GetDpi(mainWindow);
+                    mainWindow.LayoutTransform = new ScaleTransform(1 / dpiScale.DpiScaleX, 1 / dpiScale.DpiScaleY);
+                };
+            }
+
             const string appName = "Fire Tyre";
             bool createdNew;
 

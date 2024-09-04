@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Fire_Tyre_Launcher
 {
@@ -72,6 +73,7 @@ namespace Fire_Tyre_Launcher
         public MainWindow()
         {
             InitializeComponent();
+
             this.MouseLeftButtonDown += new MouseButtonEventHandler(Window_MouseLeftButtonDown);
             roothPath = Directory.GetCurrentDirectory();
             gamelocation = Path.Combine(roothPath, "Data");
